@@ -1,8 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-client.once('ready', () => {
-    console.log('Ready!');
-});
-
+client.on('ready', function(){
+    console.log('ExtraBot!');
+    
 client.login('TOKEN');
