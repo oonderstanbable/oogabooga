@@ -18,7 +18,8 @@ function tL(a){return a.toLowerCase();}
 client.on('message', message => {
     if (tL(message.content) === '.extra flip a coin') {
         message.reply(coinflip());
-    });
+    }
+});
         client.on('message', message => {
     if (tL(message.content) === '.extra') {
         message.channel.send('Sah dude, I am ExtraBot made by Extra Bot Making Company Founded by OOOPS and Agent 1');
