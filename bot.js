@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const Discord = require('./colors.json');
 
 client.on('ready', function(){
     console.log('ExtraBot!');
