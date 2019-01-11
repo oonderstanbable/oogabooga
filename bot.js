@@ -25,7 +25,7 @@ client.on('message', message => {
         .setColor(0x4286f4)
         .addField("Hey, I am extra bot")
         .addField("Eat me");
-         if(.extra) return message.channel.sendEmbed(embed)
+         if(yo extra) return message.channel.sendEmbed(embed)
 /*client.on('message', message => {
     if (tL(message.content) === '.extra') {
         message.channel.send('Sah dude, I am ExtraBot made by Extra Bot Making Company Founded by OOOPS and Agent 1');
