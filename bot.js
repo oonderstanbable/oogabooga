@@ -24,14 +24,9 @@ client.on('message', message => {
         let embed = new Discord.RichEmbed()
         .setColor(0x4286f4)
         .addField("Hey, I am extra bot")
-        .addField("Eat me");
-         if(yo extra) return message.channel.sendEmbed(embed)
+        .addField("Made by ebmc https://discord.gg/ehTXFJj");
 client.on('message', message => {
     if (tL(message.content) === '.extra') {
-         let embed = new Discord.RichEmbed()
-        .setColor(0x4286f4)
-        .addField("Hey, I am extra bot")
-        .addField("Eat me");
         message.channel.sendEmbed(embed);
 
     }
