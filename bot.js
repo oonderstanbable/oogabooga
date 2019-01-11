@@ -26,10 +26,15 @@ client.on('message', message => {
         .addField("Hey, I am extra bot")
         .addField("Eat me");
          if(yo extra) return message.channel.sendEmbed(embed)
-/*client.on('message', message => {
+client.on('message', message => {
     if (tL(message.content) === '.extra') {
-        message.channel.send('Sah dude, I am ExtraBot made by Extra Bot Making Company Founded by OOOPS and Agent 1');
-    }*/
+         let embed = new Discord.RichEmbed()
+        .setColor(0x4286f4)
+        .addField("Hey, I am extra bot")
+        .addField("Eat me");
+        message.channel.sendEmbed(embed);
+
+    }
 });
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
