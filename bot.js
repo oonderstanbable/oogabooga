@@ -25,7 +25,6 @@ client.on('message', message => {
         .setColor(0x4286f4)
         .addField("Hey, I am extra bot")
         .addField("Made by ebmc https://discord.gg/ehTXFJj");
-}
 client.on('message', message => {
     if (tL(message.content) === '.extra') {
         message.channel.sendEmbed(embed);
