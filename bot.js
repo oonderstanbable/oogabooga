@@ -9,8 +9,7 @@ client.on("guildDelete", guild => {
 });
 
 client.on("message", async message => {
- if(message.content.indexOf(config.prefix) !== 0) return;
-   
+ if(message.content.indexOf(config.prefix) !== 0) return;   
  if(command === "kick") {
     if(!message.member.roles.some(r=>["Administrator", "Moderator"].includes(r.name)) )
       return message.reply("Sorry, you don't have permissions to use this!");
