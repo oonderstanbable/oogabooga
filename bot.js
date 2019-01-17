@@ -10,6 +10,7 @@ client.on("ready", () => {
   client.user.setActivity(`.extra`);
 });
 client.on("message", async message => {
+}
   if(message.author.bot) return;
   if(message.content.indexOf(config.prefix) !== 0) return;   
     
