@@ -1,37 +1,137 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const config = require("./config.json");
+const botconfig = require("./botconfig.json");
+const tokenfile = require("./token.json");
+const Discord = require("discord.js");
 
-client.on("ready", () => {
-  // This event will run if the bot starts, and logs in, successfully.
-  console.log(`ExtraBot!`); 
-  // Example of changing the bot's playing game to something useful. `client.user` is what the
-  // docs refer to as the "ClientUser".
-  client.user.setActivity(`.extra`);
+const bot = new Discord.Client({disableEveryone: true});
+
+bot.on("ready", async () => {
+  console.log(`${bot.user.username} is online!`);
+
+  bot.user.setActivity(".extra", {type: "WATCHING"});
 });
-client.on("message", async message => {
-}
-  if(message.author.bot) return;
-  if(message.content.indexOf(config.prefix) !== 0) return;   
-    
- if(command === "kick") {
-    if(!message.member.roles.some(r=>["Administrator", "Moderator"].includes(r.name)) )
-      return message.reply("Sorry, you don't have permissions to use this!");
-     
-      let member = message.mentions.members.first() || message.guild.members.get(args[0]);
-    if(!member)
-      return message.reply("Please mention a valid member of this server");
-    if(!member.kickable) 
-      return message.reply("I cannot kick this user! Do they have a higher role? Do I have kick permissions?");
-   
-     let reason = args.slice(1).join(' ');
-    if(!reason) reason = "No reason provided";
-    
-    await member.kick(reason)
-      .catch(error => message.reply(`Sorry ${message.author} I couldn't kick because of : ${error}`));
-    message.reply(`${member.user.tag} has been kicked by ${message.author.tag} because: ${reason}`);
- }
 
+bot.on("message", async message => {
+  if(message.author.bot) return;
+  if(message.channel.type === "dm") return;
+
+  let prefix = botconfig.prefix;
+  let messageArray = message.content.split(" ");
+  let cmd = messageArray[0];
+  let args = messageArray.slice(1);
+
+  if(cmd === `${prefix}kick`){
+
+    let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+    if(!kUser) return message.channel.send("Can't find user!");
+    let kReason = args.join(" ").slice(22);
+    if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No can do pal!");
+    if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
+
+    let kickEmbed = new Discord.RichEmbed()
+    .setDescription("~Kick~")
+    .setColor("#e56b00")
+    .addField("Kicked User", `${kUser} with ID ${kUser.id}`)
+    .addField("Kicked By", `<@${message.author.id}> with ID ${message.author.id}`)
+    .addField("Kicked In", message.channel)
+    .addField("Tiime", message.createdAt)
+    .addField("Reason", kReason);
+
+    let kickChannel = message.guild.channels.find(`name`, "incidents");
+    if(!kickChannel) return message.channel.send("Can't find incidents channel.");
+
+    message.guild.member(kUser).kick(kReason);
+    kickChannel.send(kickEmbed);
+
+    return;
+  }
+
+  if(cmd === `${prefix}ban`){
+
+    let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+    if(!bUser) return message.channel.send("Can't find user!");
+    let bReason = args.join(" ").slice(22);
+    if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send("No can do pal!");
+    if(bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
+
+    let banEmbed = new Discord.RichEmbed()
+    .setDescription("~Ban~")
+    .setColor("#bc0000")
+    .addField("Banned User", `${bUser} with ID ${bUser.id}`)
+    .addField("Banned By", `<@${message.author.id}> with ID ${message.author.id}`)
+    .addField("Banned In", message.channel)
+    .addField("Time", message.createdAt)
+    .addField("Reason", bReason);
+
+    let incidentchannel = message.guild.channels.find(`name`, "incidents");
+    if(!incidentchannel) return message.channel.send("Can't find incidents channel.");
+
+    message.guild.member(bUser).ban(bReason);
+    incidentchannel.send(banEmbed);
+
+
+    return;
+  }
+
+
+  if(cmd === `${prefix}report`){
+
+
+
+    let rUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+    if(!rUser) return message.channel.send("Couldn't find user.");
+    let rreason = args.join(" ").slice(22);
+
+    let reportEmbed = new Discord.RichEmbed()
+    .setDescription("Reports")
+    .setColor("#15f153")
+    .addField("Reported User", `${rUser} with ID: ${rUser.id}`)
+    .addField("Reported By", `${message.author} with ID: ${message.author.id}`)
+    .addField("Channel", message.channel)
+    .addField("Time", message.createdAt)
+    .addField("Reason", rreason);
+
+    let reportschannel = message.guild.channels.find(`name`, "reports");
+    if(!reportschannel) return message.channel.send("Couldn't find reports channel.");
+
+
+    message.delete().catch(O_o=>{});
+    reportschannel.send(reportEmbed);
+
+    return;
+  }
+
+
+
+
+  if(cmd === `${prefix}serverinfo`){
+
+    let sicon = message.guild.iconURL;
+    let serverembed = new Discord.RichEmbed()
+    .setDescription("Server Information")
+    .setColor("#15f153")
+    .setThumbnail(sicon)
+    .addField("Server Name", message.guild.name)
+    .addField("Created On", message.guild.createdAt)
+    .addField("You Joined", message.member.joinedAt)
+    .addField("Total Members", message.guild.memberCount);
+
+    return message.channel.send(serverembed);
+  }
+
+
+
+  if(cmd === `${prefix}botinfo`){
+
+    let bicon = bot.user.displayAvatarURL;
+    let botembed = new Discord.RichEmbed()
+    .setDescription("Bot Information")
+    .setColor("#15f153")
+    .setThumbnail(bicon)
+    .addField("Bot Name", bot.user.username)
+    .addField("Created On", bot.user.createdAt);
+
+    return message.channel.send(botembed);
+  }
 function coinflip() {
     return (Math.floor(Math.random() * 2) == 0) ? 'heads' : 'tails';
 }
@@ -44,9 +144,7 @@ function tL(a){return a.toLowerCase();}
 client.on('message', message => {
     if (tL(message.content) === '.extra flip a coin') {
         message.reply(coinflip());
-    }
-
-    
+    }  
         let embed = new Discord.RichEmbed()
         .setColor(0x4286f4)
         .addField("Hey, I am extra bot", "welcome")
