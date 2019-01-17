@@ -1,15 +1,18 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const config = require("./config.json");
 
-client.on("guildDelete", guild => {
-    console.log('ExtraBot!');
-    console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
-    //client.user.setActivity('Do ok google help for commands!');
-    client.user.setActivity(`Serving ${client.guilds.size} servers`);
+client.on("ready", () => {
+  // This event will run if the bot starts, and logs in, successfully.
+  console.log(`ExtraBot!`); 
+  // Example of changing the bot's playing game to something useful. `client.user` is what the
+  // docs refer to as the "ClientUser".
+  client.user.setActivity(`.extra`);
 });
-
 client.on("message", async message => {
- if(message.content.indexOf(config.prefix) !== 0) return;   
+  if(message.author.bot) return;
+  if(message.content.indexOf(config.prefix) !== 0) return;   
+    
  if(command === "kick") {
     if(!message.member.roles.some(r=>["Administrator", "Moderator"].includes(r.name)) )
       return message.reply("Sorry, you don't have permissions to use this!");
