@@ -1,17 +1,4 @@
 {
-  "name": "DefinitelyNotBot",
-  "description": "A Discord bot coded in Discord.JS, hosted using Heroku.",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "node bot.js"
-  },
-  
-  "dependencies": {
-    "discord.js": "11.1.0",
-    "request": "2.81.0",
-    "urban.js": "2.4.3"
-  },
   "name": "tutorial",
   "version": "1.0.0",
   "description": "A tutorial bot for TSC",
