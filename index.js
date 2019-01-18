@@ -10,7 +10,7 @@ bot.on("ready", async () => {
   bot.user.setActivity(".extra", {type: "WATCHING"});
 });
 
-bot.on("message", async message => {
+/*bot.on("message", async message => {
   if(message.author.bot) return;
   if(message.channel.type === "dm") return;
 
@@ -132,6 +132,7 @@ bot.on("message", async message => {
 
     return message.channel.send(botembed);
   }
+  */
 function coinflip() {
     return (Math.floor(Math.random() * 2) == 0) ? 'heads' : 'tails';
 }
