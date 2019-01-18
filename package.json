@@ -11,6 +11,7 @@
     "discord.js": "11.1.0",
     "request": "2.81.0",
     "urban.js": "2.4.3"
+  },
   "name": "tutorial",
   "version": "1.0.0",
   "description": "A tutorial bot for TSC",
