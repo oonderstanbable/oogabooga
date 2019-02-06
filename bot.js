@@ -10,6 +10,11 @@ function coinflip() {
     return (Math.floor(Math.random() * 2) == 0) ? 'heads' : 'tails';
 }
 
+function ball() {
+    choices = ["penis","please try again","hey there qt","you're a hawty","you are beautiful just the way you are","I love you","I'm gonna ban you","ez"];
+    return choices[Math.floor(Math.random() * 8)];
+}
+
 function iN(a){return/^\d+$/.test(a);}function iO(a){return a.match('^[/*+-]{1}$')==null?!1:!0;}mC={'/':function(a,b){return a/b;},'*':function(a,b){return a*b;},'-':function(a,b){return a-b;},'+':function(a,b){return a+b;}};
 function cL(a){return a.replace(/[\[\]]/g, "");}
 function tL(a){return a.toLowerCase();}
@@ -29,6 +34,12 @@ client.on('message', message => {
     if (tL(message.content) === '.wonder') {
         message.channel.sendEmbed(embed);
 
+    }
+});
+
+client.on('message', message => {
+    if (tL(message.content) === '.wonder ball') {
+        message.reply(ball());
     }
 });
 // THIS  MUST  BE  THIS  WAY
