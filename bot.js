@@ -26,7 +26,7 @@ client.on('message', message => {
         .addField("Hey, I am Wonder Bot", "welcome")
         .addField("Made by **OOOPS#9915** here is a link to our discord", "https://discord.gg/ehTXFJj");
 client.on('message', message => {
-    if (tL(message.content) === '.wonoder') {
+    if (tL(message.content) === '.wonder') {
         message.channel.sendEmbed(embed);
 
     }
