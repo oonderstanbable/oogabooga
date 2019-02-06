@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('ready', function(){
-    console.log('ExtraBot!');
+    console.log('Wonder Bot!');
     //client.user.setActivity('Do ok google help for commands!');
 });
 
@@ -16,17 +16,17 @@ function tL(a){return a.toLowerCase();}
 
 
 client.on('message', message => {
-    if (tL(message.content) === '.extra flip a coin') {
+    if (tL(message.content) === '.wonder flip a coin') {
         message.reply(coinflip());
     }
 });
     
         let embed = new Discord.RichEmbed()
         .setColor(0x4286f4)
-        .addField("Hey, I am extra bot", "welcome")
+        .addField("Hey, I am Wonder Bot", "welcome")
         .addField("Made by **OOOPS#9915** here is a link to our discord", "https://discord.gg/ehTXFJj");
 client.on('message', message => {
-    if (tL(message.content) === '.extra') {
+    if (tL(message.content) === '.wonoder') {
         message.channel.sendEmbed(embed);
 
     }
